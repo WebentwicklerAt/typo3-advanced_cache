@@ -1,0 +1,21 @@
+{
+   "name": "webentwicklerat/advanced-cache",
+   "type": "typo3-cms-extension",
+   "license": "GPL-2.0-or-later",
+   "require": {
+      "typo3/cms-core": "^10.4"
+   },
+   "replace": {
+      "typo3-ter/advanced-cache": "self.version"
+   },
+   "autoload": {
+      "psr-4": {
+         "WebentwicklerAt\\AdvancedCache\\": "Classes/"
+      }
+   },
+   "extra": {
+      "typo3/cms": {
+         "extension-key": "advanced_cache"
+      }
+   }
+}

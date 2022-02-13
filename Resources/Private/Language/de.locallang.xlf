@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-10-30T00:24:00Z"
+          product-name="advanced_cache">
+        <header/>
+        <body>
+            <trans-unit id="clearcache.async.title" xml:space="preserve">
+                <target>Caches</target>
+            </trans-unit>
+            <trans-unit id="clearcache.async.message.success" xml:space="preserve">
+                <target>Caches erfolgreich geleert</target>
+            </trans-unit>
+            <trans-unit id="clearcache.branch" xml:space="preserve">
+                <target>Cache dieses Teilbereichs löschen</target>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.title" xml:space="preserve">
+                <target>Teilbereichscache</target>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.message.success" xml:space="preserve">
+                <target>Teilbereichscache erfolgreich geleert</target>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.message.error" xml:space="preserve">
+                <target>Teilbereichscache konnte nicht geleert werden</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

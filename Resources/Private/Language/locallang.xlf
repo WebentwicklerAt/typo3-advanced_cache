@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-10-30T00:24:00Z"
+          product-name="advanced_cache">
+        <header/>
+        <body>
+            <trans-unit id="clearcache.async.title" xml:space="preserve">
+                <source>Caches</source>
+            </trans-unit>
+            <trans-unit id="clearcache.async.message.success" xml:space="preserve">
+                <source>Successfully cleared caches</source>
+            </trans-unit>
+            <trans-unit id="clearcache.branch" xml:space="preserve">
+                <source>Clear cache for this branch</source>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.title" xml:space="preserve">
+                <source>Branch cache</source>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.message.success" xml:space="preserve">
+                <source>Successfully cleared branch cache</source>
+            </trans-unit>
+            <trans-unit id="clearcache.branch.message.error" xml:space="preserve">
+                <source>Branch cache could not be cleared</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
