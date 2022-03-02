@@ -17,23 +17,22 @@ namespace WebentwicklerAt\AdvancedCache\Service;
  */
 
 use TYPO3\CMS\Backend\Tree\Repository\PageTreeRepository;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\Query\Restriction\DocumentTypeExclusionRestriction;
-use TYPO3\CMS\Core\Type\Bitmask\Permission;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\CacheService;
 
 class ClearCacheService
 {
     /**
-     * @var CacheService
+     * @var DataHandler
      */
-    protected $cacheService;
+    protected $dataHandler;
 
     public function __construct()
     {
-        $this->cacheService = GeneralUtility::makeInstance(CacheService::class);
+        $this->dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+        $this->dataHandler->start([], []);
     }
 
     /**
@@ -42,11 +41,7 @@ class ClearCacheService
      */
     public function clearPageCache(int $pageUid): void
     {
-        $permissionClause = $this->getBackendUser()->getPagePermsClause(Permission::PAGE_SHOW);
-        $pageRow = BackendUtility::readPageAccess($pageUid, $permissionClause);
-        if ($this->getBackendUser()->doesUserHaveAccess($pageRow, Permission::PAGE_SHOW)) {
-            $this->cacheService->clearPageCache($pageUid);
-        }
+        $this->dataHandler->clear_cacheCmd($pageUid);
     }
 
     /**
@@ -62,7 +57,9 @@ class ClearCacheService
             true
         );
         $pageIdsToClear = $this->pagesToFlatArray($page);
-        $this->cacheService->clearPageCache($pageIdsToClear);
+        foreach ($pageIdsToClear as $pageUid) {
+            $this->dataHandler->clear_cacheCmd($pageUid);
+        }
     }
 
     /**
