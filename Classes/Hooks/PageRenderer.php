@@ -32,7 +32,7 @@ class PageRenderer
         if (!$asyncCacheService->isFlushed()) {
             $params['jsInline']['advanced_cache'] = [
                 'code' => 'top.jQuery.getScript(TYPO3.settings.ajaxUrls[\'tx_advancedcache_execute\']);',
-                'section' => \TYPO3\CMS\Core\Page\PageRenderer::PART_HEADER,
+                'section' => 1,
                 'compress' => 'true',
                 'forceOnTop' => 'false',
             ];
