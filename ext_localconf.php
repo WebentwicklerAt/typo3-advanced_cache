@@ -14,7 +14,7 @@
  */
 
 call_user_func(function ($_EXTKEY) {
-    if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_advancedcache_queue'])) {
+    if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_advancedcache_queue'])) {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_advancedcache_queue'] = [];
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['tx_advancedcache_queue']['frontend'] =
             \WebentwicklerAt\AdvancedCache\Cache\Frontend\VariableFrontend::class;
