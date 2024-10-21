@@ -17,6 +17,7 @@ namespace WebentwicklerAt\AdvancedCache\Xclass;
  */
 
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use WebentwicklerAt\AdvancedCache\Service\AsyncCacheService;
 
@@ -55,7 +56,11 @@ class DataHandler extends \TYPO3\CMS\Core\DataHandling\DataHandler
         // Execute collected clear cache commands from page TSConfig
         foreach ($clearCacheCommands as $command) {
             // BEGIN OF CODECHANGE
-            if (TYPO3_MODE === 'BE' && is_object($this->BE_USER) && $this->BE_USER->user['uid']) {
+            if (
+                ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()
+                && is_object($this->BE_USER)
+                && $this->BE_USER->user['uid']
+            ) {
                 /** @var AsyncCacheService $asyncCacheService */
                 $asyncCacheService = GeneralUtility::makeInstance(AsyncCacheService::class);
                 $asyncCacheService->addCommand($command);
