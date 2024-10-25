@@ -17,8 +17,9 @@ namespace WebentwicklerAt\AdvancedCache\ContextMenu;
  */
 
 use TYPO3\CMS\Backend\ContextMenu\ItemProviders\PageProvider;
+use TYPO3\CMS\Backend\ContextMenu\ItemProviders\ProviderInterface;
 
-class ItemProvider extends PageProvider
+class ItemProvider extends PageProvider implements ProviderInterface
 {
     /**
      * @var array
@@ -92,7 +93,7 @@ class ItemProvider extends PageProvider
     {
         $additionalAttributes = [];
         if ($itemName === 'clearBranchCache') {
-            $additionalAttributes['data-callback-module'] = 'TYPO3/CMS/AdvancedCache/ContextMenuActions';
+            $additionalAttributes['data-callback-module'] = '@webentwicklerat/advanced-cache/context-menu-actions';
         }
         return $additionalAttributes;
     }
