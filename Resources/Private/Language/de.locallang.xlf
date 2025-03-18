@@ -8,7 +8,7 @@
                 <target>Caches</target>
             </trans-unit>
             <trans-unit id="clearcache.async.message.success" xml:space="preserve">
-                <target>Caches erfolgreich geleert</target>
+                <target>Caches erfolgreich geleert.</target>
             </trans-unit>
             <trans-unit id="clearcache.branch" xml:space="preserve">
                 <target>Cache dieses Teilbereichs löschen</target>
@@ -17,10 +17,10 @@
                 <target>Teilbereichscache</target>
             </trans-unit>
             <trans-unit id="clearcache.branch.message.success" xml:space="preserve">
-                <target>Teilbereichscache erfolgreich geleert</target>
+                <target>Teilbereichscache erfolgreich geleert.</target>
             </trans-unit>
             <trans-unit id="clearcache.branch.message.error" xml:space="preserve">
-                <target>Teilbereichscache konnte nicht geleert werden</target>
+                <target>Teilbereichscache konnte nicht geleert werden.</target>
             </trans-unit>
         </body>
     </file>

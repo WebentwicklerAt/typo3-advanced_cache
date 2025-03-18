@@ -19,7 +19,6 @@ namespace WebentwicklerAt\AdvancedCache\Backend;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\JsonResponse;
-use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use WebentwicklerAt\AdvancedCache\Service\AsyncCacheService;
@@ -27,17 +26,17 @@ use WebentwicklerAt\AdvancedCache\Service\ClearCacheService;
 
 class AjaxRequest
 {
-    /**
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
-     */
     public function clearBranchCacheAction(ServerRequestInterface $request): ResponseInterface
     {
         $pageUid = (int)($request->getQueryParams()['id'] ?? 0);
         $success = false;
+        $title = LocalizationUtility::translate(
+            'clearcache.branch.title',
+            'advanced_cache',
+        );
         $message = LocalizationUtility::translate(
             'clearcache.branch.message.error',
-            'advanced_cache'
+            'advanced_cache',
         );
 
         if ($pageUid) {
@@ -47,41 +46,37 @@ class AjaxRequest
             $success = true;
             $message = LocalizationUtility::translate(
                 'clearcache.branch.message.success',
-                'advanced_cache'
+                'advanced_cache',
             );
         }
 
         return new JsonResponse([
             'success' => $success,
-            'title' => LocalizationUtility::translate(
-                'clearcache.branch.title',
-                'advanced_cache'
-            ),
+            'title' => $title,
             'message' => $message,
         ]);
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
-     */
     public function executeAction(ServerRequestInterface $request): ResponseInterface
     {
         /** @var AsyncCacheService $asyncCacheService */
         $asyncCacheService = GeneralUtility::makeInstance(AsyncCacheService::class);
         $asyncCacheService->flush();
 
-        $response = new Response();
+        $success = true;
         $title = LocalizationUtility::translate(
             'clearcache.async.title',
-            'advanced_cache'
+            'advanced_cache',
         );
         $message = LocalizationUtility::translate(
             'clearcache.async.message.success',
-            'advanced_cache'
+            'advanced_cache',
         );
-        $response->getBody()->write('top.TYPO3.Notification.success(\'' . $title . '\',\'' . $message . '\',4);');
 
-        return $response;
+        return new JsonResponse([
+            'success' => $success,
+            'title' => $title,
+            'message' => $message,
+        ]);
     }
 }

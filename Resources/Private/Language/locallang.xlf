@@ -8,7 +8,7 @@
                 <source>Caches</source>
             </trans-unit>
             <trans-unit id="clearcache.async.message.success" xml:space="preserve">
-                <source>Successfully cleared caches</source>
+                <source>Successfully cleared caches.</source>
             </trans-unit>
             <trans-unit id="clearcache.branch" xml:space="preserve">
                 <source>Clear cache for this branch</source>
@@ -17,10 +17,10 @@
                 <source>Branch cache</source>
             </trans-unit>
             <trans-unit id="clearcache.branch.message.success" xml:space="preserve">
-                <source>Successfully cleared branch cache</source>
+                <source>Successfully cleared branch cache.</source>
             </trans-unit>
             <trans-unit id="clearcache.branch.message.error" xml:space="preserve">
-                <source>Branch cache could not be cleared</source>
+                <source>Branch cache could not be cleared.</source>
             </trans-unit>
         </body>
     </file>

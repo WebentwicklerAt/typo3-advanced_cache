@@ -2,11 +2,11 @@ import AjaxRequest from '@typo3/core/ajax/ajax-request.js';
 import Notification from '@typo3/backend/notification.js';
 
 /**
- * @see https://github.com/TYPO3/typo3/blob/main/Build/Sources/TypeScript/backend/context-menu-actions.ts
+ * @see https://github.com/TYPO3/typo3/blob/main/Build/Sources/TypeScript/backend/context-menu.ts
  */
-class ContextMenuActions {
-    clearBranchCache(table, uid) {
-        (new AjaxRequest(TYPO3.settings.ajaxUrls.tx_advancedcache_clearbranchcache)).withQueryArguments({id: uid}).get({cache: 'no-cache'}).then(
+class ClearCacheAsync {
+    constructor() {
+        (new AjaxRequest(TYPO3.settings.ajaxUrls.tx_advancedcache_execute)).get({cache: 'no-cache'}).then(
             async (response) => {
                 const data = await response.resolve();
                 if (data.success === true) {
@@ -17,11 +17,11 @@ class ContextMenuActions {
             },
             () => {
                 Notification.error(
-                    'Clearing page branch caches went wrong on the server side.',
+                    'Clearing caches went wrong on the server side.',
                 );
             }
         );
     }
 }
 
-export default new ContextMenuActions();
+export default new ClearCacheAsync();

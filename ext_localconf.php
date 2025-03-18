@@ -16,6 +16,7 @@ defined('TYPO3') or die();
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Core\DataHandling\DataHandler::class] = [
         'className' => \WebentwicklerAt\AdvancedCache\Xclass\DataHandler::class,
     ];
+
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess'][$_EXTKEY] =
-        \WebentwicklerAt\AdvancedCache\Hooks\PageRenderer::class . '->addInlineJavaScript';
+        \WebentwicklerAt\AdvancedCache\Hooks\PageRenderer::class . '->preProcess';
 })();

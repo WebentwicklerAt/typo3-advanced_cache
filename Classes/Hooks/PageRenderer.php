@@ -16,26 +16,26 @@ namespace WebentwicklerAt\AdvancedCache\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use WebentwicklerAt\AdvancedCache\Service\AsyncCacheService;
 
 class PageRenderer
 {
-    /**
-     * @param array $params
-     * @return void
-     */
-    public function addInlineJavaScript(array &$params): void
+    public function preProcess(array &$params, \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer): void
+    {
+        $applicationType = ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST']);
+        if ($applicationType->isBackend()) {
+            $this->backend($params, $pageRenderer);
+        }
+    }
+
+    public function backend(array &$params, \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer): void
     {
         /** @var AsyncCacheService $asyncCacheService */
         $asyncCacheService = GeneralUtility::makeInstance(AsyncCacheService::class);
         if (!$asyncCacheService->isFlushed()) {
-            $params['jsInline']['advanced_cache'] = [
-                'code' => 'top.jQuery.getScript(TYPO3.settings.ajaxUrls[\'tx_advancedcache_execute\']);',
-                'section' => 1,
-                'compress' => 'true',
-                'forceOnTop' => 'false',
-            ];
+            $pageRenderer->loadJavaScriptModule('@webentwicklerat/advanced-cache/clear-cache-async.js');
         }
     }
 }
