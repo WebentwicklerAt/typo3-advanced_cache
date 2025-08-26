@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WebentwicklerAt\AdvancedCache\Service;
@@ -24,10 +25,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ClearCacheService
 {
-    /**
-     * @var DataHandler
-     */
-    protected $dataHandler;
+    protected DataHandler $dataHandler;
 
     public function __construct()
     {
@@ -35,37 +33,20 @@ class ClearCacheService
         $this->dataHandler->start([], []);
     }
 
-    /**
-     * @param int $pageUid
-     * @return void
-     */
     public function clearPageCache(int $pageUid): void
     {
         $this->dataHandler->clear_cacheCmd($pageUid);
     }
 
-    /**
-     * @param int $pageUid
-     * @return void
-     */
     public function clearBranchCache(int $pageUid): void
     {
-        $page = $this->getPageTreeRepository()->getTree(
-            $pageUid,
-            null,
-            [],
-            true
-        );
+        $page = $this->getPageTreeRepository()->getTree($pageUid);
         $pageIdsToClear = $this->pagesToFlatArray($page);
         foreach ($pageIdsToClear as $pageUid) {
             $this->dataHandler->clear_cacheCmd($pageUid);
         }
     }
 
-    /**
-     * @param array $page
-     * @return array
-     */
     protected function pagesToFlatArray(array $page): array
     {
         $flatArray = [
@@ -85,9 +66,6 @@ class ClearCacheService
         return $flatArray;
     }
 
-    /**
-     * @return PageTreeRepository
-     */
     protected function getPageTreeRepository(): PageTreeRepository
     {
         $backendUser = $this->getBackendUser();
@@ -114,9 +92,6 @@ class ClearCacheService
         );
     }
 
-    /**
-     * @return BackendUserAuthentication
-     */
     protected function getBackendUser(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];

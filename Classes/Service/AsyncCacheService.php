@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WebentwicklerAt\AdvancedCache\Service;
@@ -18,6 +19,7 @@ namespace WebentwicklerAt\AdvancedCache\Service;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,24 +27,12 @@ use WebentwicklerAt\AdvancedCache\Cache\Frontend\VariableFrontend;
 
 class AsyncCacheService implements SingletonInterface
 {
-    /**
-     * @var BackendUserAuthentication
-     */
-    protected $backendUser;
+    protected ?BackendUserAuthentication $backendUser = null;
 
-    /**
-     * @var VariableFrontend
-     */
-    protected $cache;
+    protected FrontendInterface $cache;
 
-    /**
-     * @var string
-     */
-    protected $tag;
+    protected string $tag = '';
 
-    /**
-     * CacheService constructor.
-     */
     public function __construct()
     {
         $this->backendUser = $GLOBALS['BE_USER'];
@@ -50,18 +40,12 @@ class AsyncCacheService implements SingletonInterface
         $this->tag = is_object($this->backendUser) ? 'be_user_' . $this->backendUser->user['uid'] : 'all';
     }
 
-    /**
-     * @return bool
-     */
     public function isFlushed(): bool
     {
         $commands = $this->getCommands();
         return count($commands) ? false : true;
     }
 
-    /**
-     * @return void
-     */
     public function flush(): void
     {
         $commands = $this->getCommands();
@@ -74,11 +58,7 @@ class AsyncCacheService implements SingletonInterface
         }
     }
 
-    /**
-     * @param string|int $command
-     * @return void
-     */
-    public function addCommand($command): void
+    public function addCommand(string|int $command): void
     {
         $cacheIdentifier = sha1($command);
         if (!$this->cache->get($cacheIdentifier)) {
@@ -90,18 +70,15 @@ class AsyncCacheService implements SingletonInterface
         }
     }
 
-    /**
-     * @return array
-     */
     protected function getCommands(): array
     {
-        $commands = $this->cache->getByTag($this->tag);
+        $commands = [];
+        if ($this->cache instanceof VariableFrontend) {
+            $commands = $this->cache->getByTag($this->tag);
+        }
         return $commands;
     }
 
-    /**
-     * @return void
-     */
     protected function flushCommands(): void
     {
         $this->cache->flushByTag($this->tag);

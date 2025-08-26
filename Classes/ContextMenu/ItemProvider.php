@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WebentwicklerAt\AdvancedCache\ContextMenu;
@@ -32,19 +33,11 @@ class ItemProvider extends PageProvider implements ProviderInterface
         ],
     ];
 
-    /**
-     * @return int
-     */
     public function getPriority(): int
     {
         return 45;
     }
 
-    /**
-     * @param string $itemName
-     * @param string $type
-     * @return bool
-     */
     public function canRender(string $itemName, string $type): bool
     {
         if (in_array($itemName, $this->disabledItems, true)) {
@@ -54,19 +47,12 @@ class ItemProvider extends PageProvider implements ProviderInterface
         return $canRender;
     }
 
-    /**
-     * @return bool
-     */
     protected function canClearBranchCache(): bool
     {
         return !$this->isRoot()
-            && ($this->backendUser->isAdmin() || $this->backendUser->getTSConfig()['options.']['clearCache.']['branch'] ?? false);
+            && ($this->backendUser->isAdmin() || $this->backendUser->getTSConfig()['options.']['clearCache.']['branch']);
     }
 
-    /**
-     * @param array $items
-     * @return array
-     */
     public function addItems(array $items): array
     {
         $this->initialize();
@@ -85,10 +71,6 @@ class ItemProvider extends PageProvider implements ProviderInterface
         return $items;
     }
 
-    /**
-     * @param string $itemName
-     * @return array
-     */
     public function getAdditionalAttributes(string $itemName): array
     {
         $additionalAttributes = [];

@@ -1,21 +1,31 @@
 {
-   "name": "webentwicklerat/advanced-cache",
-   "type": "typo3-cms-extension",
-   "license": "GPL-2.0-or-later",
-   "require": {
-      "typo3/cms-core": "^12.4"
-   },
-   "replace": {
-      "typo3-ter/advanced-cache": "self.version"
-   },
-   "autoload": {
-      "psr-4": {
-         "WebentwicklerAt\\AdvancedCache\\": "Classes/"
-      }
-   },
-   "extra": {
-      "typo3/cms": {
-         "extension-key": "advanced_cache"
-      }
-   }
+  "name": "webentwicklerat/advanced-cache",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "typo3/cms-backend": "^13.4"
+  },
+  "require-dev": {
+    "saschaegerer/phpstan-typo3": "^2.1.1",
+    "typo3/coding-standards": "^0.8.0"
+  },
+  "replace": {
+    "typo3-ter/advanced-cache": "self.version"
+  },
+  "autoload": {
+    "psr-4": {
+      "WebentwicklerAt\\AdvancedCache\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "advanced_cache"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true
+    }
+  }
 }
