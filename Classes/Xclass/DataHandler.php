@@ -33,27 +33,29 @@ use TYPO3\CMS\Core\LinkHandling\TypoLinkCodecService;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\Core\Service\OpcodeCacheService;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use WebentwicklerAt\AdvancedCache\Service\AsyncCacheService;
 
 class DataHandler extends \TYPO3\CMS\Core\DataHandling\DataHandler
 {
     public function __construct(
-        protected readonly EventDispatcherInterface $eventDispatcher,
-        protected readonly CacheManager $cacheManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly CacheManager $cacheManager,
         #[Autowire(service: 'cache.runtime')]
-        protected readonly FrontendInterface $runtimeCache,
-        protected readonly ConnectionPool $connectionPool,
-        protected readonly LoggerInterface $logger,
-        protected readonly PagePermissionAssembler $pagePermissionAssembler,
-        protected readonly TcaSchemaFactory $tcaSchemaFactory,
-        protected readonly PageDoktypeRegistry $pageDoktypeRegistry,
-        protected readonly FlexFormTools $flexFormTools,
-        protected readonly PasswordHashFactory $passwordHashFactory,
-        protected readonly Random $randomGenerator,
-        protected readonly TypoLinkCodecService $typoLinkCodecService,
-        protected readonly OpcodeCacheService $opcodeCacheService,
-        protected readonly FlashMessageService $flashMessageService,
+        private readonly FrontendInterface $runtimeCache,
+        private readonly ConnectionPool $connectionPool,
+        private readonly LoggerInterface $logger,
+        private readonly PagePermissionAssembler $pagePermissionAssembler,
+        private readonly TcaSchemaFactory $tcaSchemaFactory,
+        private readonly PageDoktypeRegistry $pageDoktypeRegistry,
+        private readonly FlexFormTools $flexFormTools,
+        private readonly PasswordHashFactory $passwordHashFactory,
+        private readonly Random $randomGenerator,
+        private readonly TypoLinkCodecService $typoLinkCodecService,
+        private readonly OpcodeCacheService $opcodeCacheService,
+        private readonly FlashMessageService $flashMessageService,
+        private readonly SiteFinder $siteFinder,
     ) {
         parent::__construct(
             $this->eventDispatcher,
@@ -70,6 +72,7 @@ class DataHandler extends \TYPO3\CMS\Core\DataHandling\DataHandler
             $this->typoLinkCodecService,
             $this->opcodeCacheService,
             $this->flashMessageService,
+            $this->siteFinder,
         );
     }
 
