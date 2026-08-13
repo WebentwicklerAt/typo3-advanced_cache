@@ -35,7 +35,7 @@ class ItemProvider extends PageProvider implements ProviderInterface
 
     public function getPriority(): int
     {
-        return 45;
+        return 85;
     }
 
     public function canRender(string $itemName, string $type): bool
